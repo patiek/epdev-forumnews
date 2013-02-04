@@ -4,6 +4,12 @@ This PHP script is designed to take forums posts from  one or more forum categor
 
 All aspects of the script can be easily edited from within an Admin Control Panel.
 
+DOWNLOAD
+===============
+Stable Version (recommended): https://github.com/patiek/epdev-forumnews/archive/stable.zip
+
+Development Version: https://github.com/patiek/epdev-forumnews/archive/master.zip
+
 INSTALL
 ===============
 ## Quick Installation
