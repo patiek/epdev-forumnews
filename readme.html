@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>EP-Dev Forum News</TITLE>
+<style>
+<!--
+	h1
+	{
+		font-family: verdana;
+	}
+	
+	p
+	{
+		font-family: verdana;
+		font-size: 10pt;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<h1>EP-Dev Forum News -- Readme </h1>
+<p align="center"><a href="#information">Information</a> | <a href="#whatsnew">What's 
+  New</a> | <a href="#install">Install Instructions</a> | <a href="#troubleshooting">Troubleshooting</a> 
+  | <a href="#knownbugs">Known Bugs</a> | <a href="#todolist">To-do List</a> | <a href="#versionhistory">Version History</a> 
+  | <a href="#contactus">Contact Us</a></p>
+<p><strong><a name="information">Information:</a></strong><br>
+  This script is designed to take forums posts from one or more forum categories 
+  and arrange them in a news format. Currently it works with vBulletin, Invision 
+  Power Board (ipb), Web Burning Board (wbb), YaBB SE, Simple Machines Forum (SMF), phpBB, 
+  MyBB, and primitive RSS/XML sources. It will display a specific amount of posts on a page as well as 
+  give recent headlines from one or multiple forums. News post display contains 
+  title, news text, comment number, author, date, avatar, etc. It will automatically 
+  detect and display all smilies displayed in the forum as well as popular bbcode.
+  Lastly, the script has caching support, resulting in very fast display.
+  All aspects of the script can be easily edited from within the Admin Control 
+  Panel.</p>
+<p>I release these scripts for free as most of the types of scripts we create 
+  are usually not available to the public for free. While I do not <em>require</em> 
+  anything in return, I would really appreciate a link to EP-Dev.com on your 
+  links page :).</p>
+<p>&nbsp;</p>
+<p><strong><a name="whatsnew">What's New in Version 2.0:</a></strong><br>
+  - Added full cache support. The script can now use output that has been cached
+  instead of having to pull all the news from the database every time. This of course
+  speeds up the script and saves on many database queries. The cache time can be set
+  from within the Admin Panel.<br>
+  <br>
+  - Multiple Forum Support: The script can now pull posts from an infinite number 
+  of forums. Additionally, these forums can be of mixed and matched types. This 
+  means that it is now possible to pull posts from Invision Power Board and vBulletin 
+  and display by date as news.<br>
+  <br>
+  - Multiple Layout Support: Multiple layouts can now be handled by the script. 
+  This means that completely separate layouts (all templates including forum post, 
+  headlines, bbcode, ect.) can now be entered in. Combined with multiple forum 
+  support, this opens up the awesome possibility of pulling news from multiple 
+  forums of different sites and displaying the combined news across an array of 
+  sites in that site's layout.<br>
+  <br>
+  - Added Avatar Support, new BBcode recognition, as well as new forum support!.
+  <br>
+  - Added basic RSS Support. The script can now pull from rss feeds.</p>
+<p>&nbsp;</p>
+<p><strong><a name="install">Upgrade Instructions:</a></strong></p>
+<p>1. BACKUP your forum-news/config/ folder.<br>
+  2. Upload the entire forum-news folder <b>except</b> for the forum-news/config/ folder to your website.<br>
+  3. Visit forum-news/admin/index.php in your web browser and follow the on-screen instructions.<br></p>
+<p>&nbsp;</p>
+<p><strong><a name="install">Install Instructions (easy &amp; recommended):</a></strong></p>
+<p>1. Upload entire forum-news folder to your website.<br>
+  2. You must chmod 0666 (read &amp; write all) the files news.php, config/config.php, 
+  and config/template.php. Chmod the cache folder to 0777 (read/write/execute all). This 
+  can usually be done in your ftp program by right clicking on the file/folder. <br>
+  2. Visit forum-news/admin/index.php in your web browser.<br>
+  3. Since this is your first time logging in, login by typing &quot;admin&quot; 
+  into the username field and leaving the password field blank.<br>
+  4. You will be taken to the change username &amp; password page. Please change 
+  your username &amp; password at this time.<br>
+  5. Login again to the Administration Panel and continue through the steps listed 
+  on the main page. The last step should be the Generate Code step, where code 
+  is generated for you to place on the page you want to display news and/or headlines 
+  on. </p>
+<p>&nbsp;</p>
+<p><strong><a name="install">Install Instructions (manual &amp; advanced):</a></strong></p>
+<p> <strong><font color="#FF0000">IF YOU ARE NOT USING THE ADMINISTRATION PANEL, 
+  YOU SHOULD DELETE the admin/ folder!</font></strong><br>
+  Before you begin: Chmod cache folder to 0777 if you plan to use cache.<br>
+  1. Edit config/config.php file with your database settings, urls, and default 
+  category ids of your forum that you want the news script to pull news from.<br>
+  2. Edit the $this-&gt;absolute_path in news.php, setting it to your absolute 
+  path value.<br>
+  3. Edit config/template.php and format it to how you want your news to be displayed</p>
+<p>4. Insert the following under the &lt;body&gt; tag of any pages you wish for 
+  news or headlines to be displayed on:<br>
+  <font color="#FF0000">&lt;?php include_once(&quot;/absolute/path/to/forum-news/news.php&quot;); 
+  ?&gt;</font></p>
+<p>5. To display news on your page, insert the following:<br>
+  <font color="#FF0000">&lt;?php </font><font color="#FF0000">$forum_obj = new 
+  EP_Dev_Forum_News();<br>
+  $forum_obj-&gt;display_News(); ?&gt;</font> (you can also specify non-default 
+  ids and news numbers... see examples.php for examples).</p>
+<p>6. To display headlines on your page, insert the following:<br>
+  <font color="#FF0000">&lt;?php $forum_obj = new EP_Dev_Forum_News();<br>
+  $forum_obj-&gt;display_News(); ?&gt;</font> (you can also specify non-default 
+  ids and news numbers... see examples.php for examples).</p>
+<p>The display_News() accepts four arguments:<br>
+  <font color="#FF0000">$forum_obj-&gt;display_News(NUMBER TO DISPLAY, FORUM CATEGORY 
+  IDS, FORUM IDS, TEMPLATE IDS);</font></p>
+<p>For <strong>example</strong>: <font color="#FF0000">$forum_obj-&gt;display_News(&quot;10&quot;, 
+  &quot;2&quot;, &quot;0&quot;, &quot;2&quot;);</font> would display 10 news items 
+  from category id 2 of forum 0 (in config.php) using template 2 (from template.php). 
+</p>
+<p>Additionally, <strong>any argument can also be left out</strong>: <font color="#FF0000">$forum_obj-&gt;display_News(&quot;&quot;, 
+  &quot;&quot;, &quot;&quot;, &quot;2&quot;);</font> would display the default 
+  number of news items of all default categories of all default forums using template 
+  2.</p>
+<p>This is how you would <strong>display multiple forums</strong> using default 
+  categories: <font color="#FF0000">$forum_obj-&gt;display_News(&quot;&quot;, 
+  &quot;&quot;, &quot;2,3&quot;, &quot;&quot;);</font> would display forum 1 and 
+  forum 2 using their respective default categories with the default template 
+  and the default number of news items.</p>
+<p>You may also want to <strong>display specific category numbers and specific 
+  forums</strong>. This can be accomplished using the <font color="#FF0000">|</font> 
+  and the <font color="#FF0000">,</font> where <font color="#FF0000">|</font> 
+  separates forums and <font color="#FF0000">,</font> separates category ids. 
+  A good example then is <font color="#FF0000">$forum_obj-&gt;display_News(&quot;&quot;, 
+  &quot;1,2,3|2,3,8,4&quot;, &quot;0,2&quot;, &quot;&quot;);</font> where we are 
+  pulling both forum 0 and forum 2, but for forum 0 we are getting posts from 
+  categories 1, 2, and 3 while in forum 2 we are getting posts from categories 
+  2, 3, 8, and 4.</p>
+<p>To sum up, I will give you perhaps the most complicated example you will run 
+  into:<br>
+  <font color="#FF0000">$forum_obj-&gt;display_News(&quot;23&quot;, &quot;1,2,3|2,3,8,4|8|3,2&quot;, 
+  &quot;0,2,1,4&quot;, &quot;1&quot;);</font> would display 23 news items total. 
+  The script will be pulling posts from categories 1, 2, and 3 for forum 0, categories 
+  2, 3, 8, and 4 for forum 2, category 8 for forum 1, and categories 3 and 2 for 
+  forum 4. The script will be using template 1 for the output. As you can see, 
+  the order of forums or categories does not matter.</p>
+<p>The <font color="#FF0000">display_Headlines()</font> uses the exact same methods 
+  as <font color="#FF0000">display_News()</font>. Therefore all the above is applicable 
+  to <font color="#FF0000">display_Headlines()</font> too! Like all EP-Dev scripts, 
+  it is all very feature rich, with the ability to be used by both the novice 
+  as well as those who require advanced features. If the above isn't enough customization 
+  for you, open up news.php and take a look at the news() function.</p>
+<p>&nbsp;</p>
+<p><strong><a name="troubleshooting">Troubleshooting:</a></strong><br>
+  If you need help, visit <a href="http://www.dev-forums.com" target="_blank">http://www.dev-forums.com</a> 
+  .</p>
+<p>The troubleshooting section has been relocated to within the Administration 
+  Panel.
+<p>&nbsp;</p>
+<p><strong><a name="knownbugs">Known Bugs:</a></strong><br>
+  - Double breaks in [php][/php] text for some forums.</p>
+<p>&nbsp;</p>
+<p><strong><a name="todolist">To-do List:</a></strong><br>
+  - Add support for [list] bbcode.<br>
+  - Add support for post limits per forum and category.<br>
+  - Add support for fetch restriction by author.</p>
+<p>&nbsp;</p>
+ <p><strong><a name="versionhistory">Version History:</a></strong></p>
+
+
+<p>2.24 - October 16, 2006:<br>
+  FIXED BUG: A bug preventing multi-forum support for non-default forums has been fixed.</p>
+<p>2.23 - October 13, 2006:<br>
+  FIXED BUG: A missing upgrade link in the upgrade core for 2.21 -> 2.22 has been fixed.<br>
+  FIXED BUG: A bug that was preventing some proper usage of multiple categories has been fixed (thanks ecko! @ hl2grounds.net).<br>
+  FIXED BUG: A vBulletin 3.x bug that displayed old avatars (outdated) for users has been fixed (thanks ecko! ... again).</p>
+<p>2.22 - October 11, 2006:<br>
+  FIXED BUG: Fixed Invision Power Board Forum access class naming bugs (2.0, 2.1 were affected).</p>
+<p>2.21 - October 7, 2006:<br>
+  FIXED BUG: Fixed PHP 4.x bug that prevented proper RSS / XML support.<br>
+  IMPROVED: Improved code in WoltLab_Burning_Board_Lite_1 for thread link (unreachable code).<br>
+  FIXED BUG: Fixed a bug that caused enabled but inactive forums to be called when forum 0 alone was called (http://www.dev-forums.com/index.php?showtopic=229).<br>
+  IMPROVED: Improved some logic in error output where script no longer kills PHP on certain errors (such as no posts in category).<br>
+  ADDED FEATURE: Added support for Invision Power Board (IPB) 2.1.x. The 2.0.x module broke the smilies of 2.1.x.<br>
+  ADDED FEATURE: The script can now use the cache on file when the data source is down. This will allow websites to continue operating even if, for example, MySQL is offline.<br>
+  IMPROVED: Modified connection settings of all data sources. MySQL connections are now only established when they are needed.<br>
+  FIXED BUG: A bug resulting in excessive cache writing when cache is disabled has been fixed.<br>
+  IMPROVED: The character limit now detects word boundaries and does not cut off in the middle of a word.<br>
+  IMPROVED: Improved line break fix feature to retain case and be case insensitive.</p>
+<p>2.20 - June 29, 2005:<br>
+  IMPROVED: Added error for trying to use sources that are disabled in the script.<br>
+  IMPROVED: Added !!SOURCE_ID!! to the recognizable tags for templates. This tag will report the source id, as recognized by the script.<br>
+  IMPROVED: Modified phpBB 2.x class to allow for custom user prefix setting (you have to manually edit file). This allows for PHP-Nuke users to use the script as nuke overrides phpBB's default user table. Updated FAQ concerning this matter.<br>
+  IMPROVED: Modified admin panel absolute_path and forum_url restrictions to allow for override of invalid formats (allows for people to use CMS scripts such as PHP-Nuke). A javascript confirm dialog is now invoked instead of an automatic alert (and fail) box.<br>
+  ADDED FEATURE: Added "Fix Line Breaks" feature in script settings to format &lt;br&gt; into &lt;br /&gt;.<br>
+  IMRPOVED: Modified Invision Power Board 1.3x class to fix line breaks automatically to be valid XML.<br>
+  IMPROVED: Improved update process with automatic updater incorporated into the admin panel.<br>
+  IMPROVED: Improved input/output configuration functions of admin panel.<br>
+  IMPROVED: Added some better visuals to control panel to be more user friendly.<br>
+  ADDED FEATURE: Script can now pull and use basic RSS / XML feeds from other sites as news or headlines.<br>
+  ADDED FEATURE: Added ability to use different databases / sources for news. No databases except for MySQL are supported however.<br>
+  FIXED BUG: Fixed a potential bug in admin/display.php of the administration panel's handling of html entities that could result in being unable to modify variables from the admin panel.<br>
+  FIXED BUG: Fixed potential problems in parsing bb code URLs and other tags utilizing [tag=][/tag] that contain quotes (ex: [url="http://"]site[/url]) in classes/display.php (http://www.dev-forums.com/index.php?showtopic=145).<br>
+  FIXED BUG: A bug in the display_Headlines function causing improper handling of headlines has been fixed (http://www.dev-forums.com/index.php?showtopic=132).</p>
+<p>2.11 - January 30, 2005:<br>
+  IMPROVED: Check for Update admin panel page now utilizes the new version of EP-Dev Updater. Links to downloads and information
+  on new versions of the software are now displayed within the admin panel's update page.<br>
+  ADDED FEATURE: Script now supports My Bulletin Board (MyBB) for its current version of this release (1.0 RC4).</p>
+<p>2.10 - January 9, 2005:<br>
+  ADDED FEATURE: Added true caching support. Cache time can be set form within admin panel. (cache time in minutes)<br>
+  FIXED BUG: Fixed a major bug that could load incorrect values if admin panel not used. (wrong checks on ids &amp; forums)<br>
+  ADDED FEATURE: Added example file of RSS code and template code (template 3).<br>
+  FIXED BUG: Added missing date code link on the admin panel templates page.<br>
+  FIXED BUG: Fixed a bug that caused post number error to be displayed when post number not set.</p>
+<p>2.02 - January 5, 2005:<br>
+  IMPROVED: Check For Update admin panel page now displays script's version number.<br>
+  FIXED BUG: Fixed a bug that allowed admin panel to display html tags in header's title.<br>
+  FIXED BUG: Fixed a bug that prevented the auto-linking of multiple URLs due to regex.<br>
+  FIXED BUG: Added specific error reporting levels to prevent NOTICE disruptions.</p>
+<p>2.01 - January 4, 2005:<br>
+  FIXED BUG: Fixed broken character limit feature caused by improper argument order. 
+  (Thanks to Essie for notifying me).</p> 
+<p>2.0 - December 29 2004:<br>
+  ADDED FEATURE: Added ability to automatically check for new script versions on 
+  login to the control panel.<br>
+  IMPROVED: More BBcode supported for many forums.<br>
+  ADDED FEATURE: Added global support for [php] bbcode.<br>
+  ADDED FEATURE: Added support for WoltLab Burning Board Lite 1.0.<br>
+  ADDED FEATURE: Added support for Invision Power Board (IPB) 2.0.<br>
+  ADDED FEATURE: Added avatar support.<br>
+  ADDED FEATURE: Added support for Simple Machines Forum (SMF) 1.0.<br>
+  FIXED BUG: Fixed bug in handling of html special characters in templates resulting 
+  in invalid xhtml / html 4.01 code.<br>
+  IMPROVED: Improved handling of bbcode.<br>
+  FIXED BUG: Fixed bug in auto-linking that may have allowed for linking of urls 
+  that had already been linked.<br>
+  FIXED BUG: Fixed bug in Invision Board 1.3 class in MySQL select pulling threads 
+  improperly.<br>
+  ADDED FEATURE: Added ability to turn general BB code parsing on and off.<br>
+  ADDED FEATURE: Multiple templates can now be set, allowing for one script to 
+  display data in different templates (aka different layouts).<br>
+  ADDED FEATURE: Multiple Forums can now be used at one time. News can be pulled 
+  from multiple forums into news display, multiple forums can display as different 
+  news, ect. all with just one script install.<br>
+  ADDED FEATURE: In some circumstances posts can now be recycled witihn execution, 
+  saving on database queries. Actual caching support is planned to be implemented 
+  in the future.<br>
+  IMPROVED: Complete rewrite of code. Script is now object oriented, allowing 
+  for more flexibility and much stronger manipulation.</p>
+  
+<p>1.4 - August 2 2004:<br>
+  FIXED BUG: Fixed bug of vBulletin v2 possibly showing wrong post for given thread 
+  on some installations.<br>
+  IMPROVED: Many files can now be renamed.<br>
+  IMPROVED: Added much better comment structure to news.php file. Almost everything 
+  commented now!<br>
+  ADDED FEATURE: Option to auto-link posted URLs.<br>
+  IMPROVED: [highlight] bbcode now recognized in vBulletin.<br>
+  IMPROVED: Code re-write of post parsing function. More tags recognized in news 
+  post layout, comments link layout, and author link layout.<br>
+  IMPROVED: Combined template configuration into one easy file.<br>
+  IMRPOVED: Renamed globals to free $TEMPLATES global.<br>
+  ADDED FEATURE: Added Administration Panel. No more editing files manually! EVERYONE 
+  better use it because it sure took a few days of coding.<br>
+  FIXED BUG: Fixed bug of vBulletin v3 not recognizing database prefix.</p>
+  
+<p>1.3 - March 27 2004:<br>
+  IMPROVED: Improved bbcode logic on all forums to pick up on [code] bbcode. Template 
+  for it can be edited in tags.php<br>
+  FIXED BUG: Fixed a bug with bbcode [quote] tag where TEMPLATES['QUOTES'] (in 
+  tags.php) was appending '!!' to the end of the actually quote.<br>
+  FIXED BUG: Fixed bug in parsing headlines with smilies where smilies would not 
+  be run through the smilie_error_fix, even if the value was set to true.<br>
+  ADDED FEATURE: YaBB SE v1.5.x is now supported!<br>
+  ADDED FEATURE: Web Burning Board (wbb) v1.2 is now supported!<br>
+  IMPROVED: Read More links (both cut off link character link &amp; normal cut 
+  off link) is now editable from templates/tags.php file.<br>
+  IMPROVED: Comments link is now fully editable from template/tags.php file.<br>
+  IMPROVED: Author link is now fully editable from template/tags.php file.</p>
+<p>1.2 - March 21 2004:<br>
+  FIXED BUG: Both Uppercase and Lowercase BB codes now supported for all forum 
+  types.<br>
+  ADDED FEATURE: Invision Board 1.3 is now supported!</p>
+<p>1.1 - No Public Release (N/A):<br>
+  FIXED BUG: Updated smilies to detect https:// to avoid smilie link problems.<br>
+  FIXED BUG: Smilies now look for http:// instead of http, as a site containing 
+  http will end up getting errors.<br>
+  FIXED BUG: Smilies are now sorted to avoid smilie errors resulting from smilies 
+  containing other smilies. You can toggle this feature on / off in config.inc.php, 
+  as you may wish to disable the sort to make the script faster.</p>
+<p>1.0 - December 7 2003: First Release, everything is new.</p>
+<p>&nbsp;</p>
+<p><strong><a name="contactus">Contact Us:</a></strong><br>
+  Please send me comments, questions, and feature requests! I love to hear from 
+  people.<br>
+  My Email: patiek@ep-dev.com<br>
+  Website: <a href="http://www.ep-dev.com" target="_blank">http://www.ep-dev.com</a><br>
+  Support: <a href="http://www.dev-forums.com">http://www.dev-forums.com</a></p>
+<p>If you modify this program, you must still include a reference to www.ep-dev.com 
+  in the modified script.</p>
+<p align="center"><a href="#information">Information</a> | <a href="#whatsnew">What's 
+  New</a> | <a href="#install">Install Instructions</a> | <a href="#troubleshooting">Troubleshooting</a> 
+  | <a href="#knownbugs">Known Bugs</a> | <a href="#versionhistory">Version History</a> 
+  | <a href="#contactus">Contact Us</a></p>
+</BODY>
+</HTML>
