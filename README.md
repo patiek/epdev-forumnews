@@ -1,3 +1,5 @@
+NOTE: This is an old project, kept here for archival purposes. The core of the code is over 10 years old with only minor updates.
+
 EP-Dev Forum News
 ===============
 This PHP script is designed to take forums posts from  one or more forum categories and arrange them in a news or blog format.  Currently it works with vBulletin, Invision Power Board (ipb), Web  Burning Board (wbb), YaBB SE, Simple Machines Forum (SMF), MyBB, phpBB, and RSS/XML sources. It will display a customizable number of posts on a page as well as provide recent headlines from one or multiple forum categories and multiple forum installations. Each post display may contain title, text, comment number,  author, date, avatar, etc. It will automatically detect and display all smilies/emoticons supported by the forum software as well as recognize popular bbcode.
